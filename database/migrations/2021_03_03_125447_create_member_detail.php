@@ -16,6 +16,7 @@ class CreateMemberDetail extends Migration
         Schema::create('member_detail', function (Blueprint $table) {
             $table->id();
             $table->string('member_id');
+
             $table->string('first_name');
             $table->string('last_name');
             $table->string('gender');

@@ -1,8 +1,11 @@
 <?php
 
+use App\Http\Controllers\DormitoryController;
+use App\Http\Controllers\HomeController;
+use App\Models\Member;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
-
+use Illuminate\Support\Facades\DB;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,11 +17,49 @@ use Illuminate\Support\Facades\Auth;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Auth::routes();
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth/login');
 });
 
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('home', [HomeController::class, 'index'])->name('home');
+
+Route::post('users', [DormitoryController::class, 'store']);
+
+Route::get('member', ['middleware'=>'islogedin', function(){
+    $mem = DB::table('member')->get();
+    return view('member', ['member' => $mem]);
+}]);
+
+Route::get('member_detail', ['middleware'=>'islogedin', function(){
+    $mem = DB::table('member_detail')->get();
+    return view('member_detail', ['member_detail' => $mem]);
+}]);
+
+Route::get('booking', ['middleware'=>'islogedin', function(){
+    $mem = DB::table('booking')->get();
+    return view('booking', ['booking' => $mem]);
+}]);
+
+Route::get('room', ['middleware'=>'islogedin', function(){
+    $mem = DB::table('room')->get();
+    return view('room', ['room' => $mem]);
+}]);
+
+Route::get('bill', ['middleware'=>'islogedin', function(){
+    $mem = DB::table('bill')->get();
+    return view('bill', ['bill' => $mem]);
+}]);
+
+
+
+// Route::get('member_detail', function () {
+    
+//     $mem = DB::table('member_detail')->get();
+    
+//     return view('member_detail', ['member_detail' => $mem]);
+// });
+
+
+Auth::routes();

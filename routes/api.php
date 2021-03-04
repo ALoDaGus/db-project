@@ -15,8 +15,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
+// Route::middleware('auth:api')->get('/user', function (Request $request) {
+//     return $request->user();
+// });
 
-Route::post('/create', [DormitoryController::class, 'create']);
+Route::post('/create/member', [DormitoryController::class, 'create_member']);
+Route::post('/create/member_detail', [DormitoryController::class, 'create_member_detail']);
+Route::post('/create/room', [DormitoryController::class, 'create_room']);
+Route::post('/create/bill', [DormitoryController::class, 'create_bill']);
+Route::post('/create/booking', [DormitoryController::class, 'create_booking']);

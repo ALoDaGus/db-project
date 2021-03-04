@@ -17,7 +17,7 @@ class CreateBill extends Migration
             $table->id();
             $table->string('room_id');
             $table->string('month_routine');
-            $table->string('net_summary');
+            $table->float('net_summary');
             $table->timestamps();
         });
     }

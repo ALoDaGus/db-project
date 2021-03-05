@@ -25,7 +25,22 @@ Route::get('/', function () {
 
 Route::get('home', [HomeController::class, 'index'])->name('home');
 
-Route::post('users', [DormitoryController::class, 'store']);
+// Route::post('insert', [DormitoryController::class, 'store']);
+// Route::post('insert',[DormitoryController::class, 'store'], ['middleware'=>'islogedin']);
+
+// Route::get('editdata/{id}', ['middleware'=>'islogedin', function()
+// {
+//     return redirect()->action([DormitoryController::class, 'edit_data']);
+// }]);
+Route::get('editdata/{id}', [DormitoryController::class, 'edit_data'], ['middleware'=>'islogedin']);
+
+Route::post('insert', [DormitoryController::class, 'store'], ['middleware'=>'islogedin', function(){
+    // return redirect('home');
+}]);
+
+Route::post('update/{id}', [DormitoryController::class, 'update'], ['middleware'=>'islogedin', function(){
+    
+}]);
 
 Route::get('member', ['middleware'=>'islogedin', function(){
     $mem = DB::table('member')->get();

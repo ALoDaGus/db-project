@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Room extends Model
 {
@@ -16,4 +17,14 @@ class Room extends Model
         'room_price',
         'rental_status',
     ];
+
+    public function bill()
+    {
+        return $this->hasMany(Bill::class);
+    }
+
+    public function booking()
+    {
+        return $this->hasMany(Booking::class);
+    }
 }

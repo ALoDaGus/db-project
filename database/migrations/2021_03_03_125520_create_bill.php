@@ -15,7 +15,7 @@ class CreateBill extends Migration
     {
         Schema::create('bill', function (Blueprint $table) {
             $table->id();
-            $table->string('room_id');
+            $table->unsignedBigInteger('room_id');
             $table->string('month_routine');
             $table->float('net_summary');
             $table->timestamps();

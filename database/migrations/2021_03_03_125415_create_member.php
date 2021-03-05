@@ -15,8 +15,7 @@ class CreateMember extends Migration
     {
         Schema::create('member', function (Blueprint $table) {
             $table->id();
-            $table->string('member_id');
-            $table->string('room_id');
+            $table->unsignedBigInteger('room_id');
             $table->timestamps();
         });
     }

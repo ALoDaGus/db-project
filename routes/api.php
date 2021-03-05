@@ -24,3 +24,5 @@ Route::post('/create/member_detail', [DormitoryController::class, 'create_member
 Route::post('/create/room', [DormitoryController::class, 'create_room']);
 Route::post('/create/bill', [DormitoryController::class, 'create_bill']);
 Route::post('/create/booking', [DormitoryController::class, 'create_booking']);
+Route::delete('/member/{id}', [DormitoryController::class, 'member_destroy'])->name('member.destroy');
+Route::post('/edit/{id}', [DormitoryController::class, 'edit_data'])->name('edit');

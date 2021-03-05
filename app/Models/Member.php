@@ -12,19 +12,16 @@ class Member extends Model
     protected $table = 'member';
 
     protected $fillable = [
-        'member_id',
         'room_id',
     ];
 
     public function member_detail()
     {
-        return $this->hasOne(Member::class, 'member_id', 'member_id');
+        return $this->hasOne(MemberDetail::class);
     }
 
-    public function room()
+    public function booking()
     {
-        return $this->hasOne(Room::class, 'room_id', 'room_id')
-                    ->hasOne(Booking::class, 'room_id', 'room_id')
-                    ->hasOne(Bill::class, 'room_id', 'room_id');
+        return $this->hasMany(Booking::class);
     }
 }

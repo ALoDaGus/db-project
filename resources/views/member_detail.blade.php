@@ -5,6 +5,7 @@
 
 <div class="container">
     <h2>Member Detail Table</h2>
+    <div class="container" style="display: flex; padding:0;">
     <table class="table table-bordered">
       <thead>
         <tr>
@@ -31,6 +32,22 @@
         @endforeach
       </tbody>
     </table>
+    <table class="table table-bordered" style="margin:0 1rem; max-width:50px">
+      <thead>
+        <tr>
+          <th colspan="2" style="text-align: center;">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        @foreach ($member_detail as $item)
+        <tr>
+            <td><a href="#"><i class="fas fa-cog" style="color: #0068ad"></i></a></td>
+            <td><a href="#"><i class="fas fa-trash-alt" style="color: #e33b3b"></i></a></td>
+        </tr>
+        @endforeach
+      </tbody>
+    </table>
   </div>
+</div>
 
 @endsection

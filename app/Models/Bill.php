@@ -12,8 +12,15 @@ class Bill extends Model
     protected $table = 'bill';
 
     protected $fillable = [
+        'member_id',
         'room_id',
         'month_routine',
         'net_summary',
     ];
+
+    public function room()
+    {
+        return $this->belongsTo(Room::class);
+    }
+
 }

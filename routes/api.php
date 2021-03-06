@@ -25,4 +25,11 @@ Route::post('/create/room', [DormitoryController::class, 'create_room']);
 Route::post('/create/bill', [DormitoryController::class, 'create_bill']);
 Route::post('/create/booking', [DormitoryController::class, 'create_booking']);
 Route::delete('/member/{id}', [DormitoryController::class, 'member_destroy'])->name('member.destroy');
+
+// Route::delete('/member/{id}', ['middleware'=>'islogedin', function(){
+//     return redirect()->action([DormitoryController::class, 'member_destroy']);
+// }])->name('member.destroy');
 Route::post('/edit/{id}', [DormitoryController::class, 'edit_data'])->name('edit');
+Route::post('/create/room', ['middleware'=>'islogedin', function(){
+    return redirect()->action([DormitoryController::class, 'create_room']);
+}]);

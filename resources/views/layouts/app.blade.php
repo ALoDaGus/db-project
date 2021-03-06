@@ -12,7 +12,7 @@
     <!-- Scripts -->
     <script src="https://kit.fontawesome.com/dd3b98eba7.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
-    <script src="{{ asset('js/app.js') }}" defer></script>
+    {{-- <script src="{{ asset('js/app.js') }}" defer></script> --}}
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
@@ -25,7 +25,12 @@
           $( "#datepicker2" ).datepicker();
         } );
         </script>
-    
+   <script>
+    function imselected() {
+        var myselected = document.getElementById("imselect").value;
+        document.getElementById("gender").value = myselected;
+    }
+    </script> 
     {{-- <script>
         window.Laravel = {!! json_encode([
             'csrfToken' => csrf_token(),
@@ -38,10 +43,15 @@
         
         <!-- Styles -->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
-        <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+        {{-- <link href="{{ asset('css/app.css') }}" rel="stylesheet"> --}}
         <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
         <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-        <link rel="stylesheet" href="/resources/demos/style.css">
+        {{-- <link rel="stylesheet" href="/resources/demos/style.css"> --}}
+        <style>
+            .container {
+                padding: 0;
+            }
+        </style>
 </head>
 <body>
     <div id="app">

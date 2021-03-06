@@ -25,7 +25,7 @@ class DormitoryController extends Controller
         $member->save();
         
         $member_detail = new MemberDetail;
-        $member_detail->gender = '123'; //////////////////////////////////////////
+        $member_detail->gender = request('gender');
         $member_detail->member_id = $member->id;
         $member_detail->tel_no = request('tel_no');
         $member_detail->address = request('address');
@@ -43,21 +43,27 @@ class DormitoryController extends Controller
         $booking->check_out = Carbon::createFromFormat('m/d/Y', request('check_out'))->format('Y/m/d');
         $booking->save();
 
-        $room = new Room;
+        DB::table('room')->where('id', request('room_id'))->update(['member_id'=>request('member_id'),'rental_status'=>'inuse']);
+
+        // $room = new Room;
         $date1 = $booking->check_in;
         $date2 = $booking->check_out;
         $diff = abs(strtotime($date2) - strtotime($date1));
         $years = floor($diff / (365*60*60*24));
         $months = floor(($diff - $years * 365*60*60*24) / (30*60*60*24));
         $days = floor(($diff - $years * 365*60*60*24 - $months*30*60*60*24)/ (60*60*24));
-        $room->room_price = $days*500;
-        $room->rental_status = '0';////////////////////////////////////////////////////////
-        $room->save();
+        // $room->id = request('room_id');
+        // $room->member_id = $member->id;
+        // $room->room_price = $days*500;
+        // $room->rental_status = '0';////////////////////////////////////////////////////////
+        // $room->save();
 
+        // $price = DB::table('room')->select('room_price')->where('id', request('room_id'));
         $bill = new Bill;
-        $bill->room_id = $room->id;
+        $bill->room_id = request('room_id');
+        $bill->member_id = $member->id;
         $bill->month_routine = 'test';/////////////////////////////////////
-        $bill->net_summary = 1233;///////////////////////////////////////
+        $bill->net_summary = $days * Room::find(request('room_id'))->room_price;///////////////////////////////////////
         $bill->save();
 
         return redirect('member');
@@ -68,13 +74,12 @@ class DormitoryController extends Controller
         DB::table('member')->where('id', $id)->update(['room_id'=>request('room_id')]);
         DB::table('member_detail')->where('member_id', $id)->update(['first_name'=>request('first_name'),
                                                                      'last_name'=>request('last_name'),
-                                                                     'gender'=>'213',
+                                                                     'gender'=>request('gender'),
                                                                      'tel_no'=>request('tel_no'),
                                                                      'email'=>request('email'),
                                                                      'address'=>request('address')]);
 
         $ldate = date('Y-m-d H:i:s');
-        // $date1 =Carbon::createFromFormat('m/d/Y', request('check_in'))->format('Y-m-d');
 
         DB::table('booking')->where('member_id', $id)->update(['room_id'=>request('room_id'),
                                                                'booking_date'=>$ldate,
@@ -94,10 +99,10 @@ class DormitoryController extends Controller
         return Booking::create($request->all());
     }
 
-    public function create_room(Request $request)
-    {
-        return Room::create($request->all());
-    }
+    // public function create_room(Request $request)
+    // {
+    //     return Room::create($request->all());
+    // }
 
     public function create_bill(Request $request)
     {
@@ -106,8 +111,27 @@ class DormitoryController extends Controller
 
     public function member_destroy($id)
     {
+        DB::table('room')->where('id', Member::find($id)->room_id)->update(['member_id'=>null, 'rental_status'=>'free']);
+        DB::table('bill')->where('room_id', Member::find($id)->room_id)->delete();
         DB::table('member')->where('id', $id)->delete();
+        DB::table('member_detail')->where('member_id', $id)->delete();
+        DB::table('booking')->where('member_id', $id)->delete();
         return redirect('/member');
+    }
+
+    public function create_room()
+    {
+        $room = new Room;
+        $room->room_price = 500;
+        $room->rental_status = 'free';
+        $room->save();
+        return redirect('/room');
+    }
+
+    public function destroy_room($id)
+    {
+        DB::table('room')->where('id', $id)->delete();
+        return redirect('/room');
     }
 
     public function edit_data($id)

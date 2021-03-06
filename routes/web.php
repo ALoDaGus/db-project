@@ -67,6 +67,13 @@ Route::get('bill', ['middleware'=>'islogedin', function(){
     return view('bill', ['bill' => $mem]);
 }]);
 
+Route::post('/create/room', [DormitoryController::class, 'create_room', ['middleware'=>'islogedin']])->name('create.room');
+Route::delete('/destroy/room{id}', [DormitoryController::class, 'destroy_room', ['middleware'=>'islogedin']])->name('destroy.room');
+
+// Route::post('/create/room', ['middleware'=>'islogedin', function(){
+//     return redirect()->action([DormitoryController::class, 'create_room']);
+// }])->name('create.room');
+
 
 
 // Route::get('member_detail', function () {

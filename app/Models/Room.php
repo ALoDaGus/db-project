@@ -13,10 +13,15 @@ class Room extends Model
     protected $table = 'room';
     
     protected $fillable = [
-        'room_id',
+        'member_id',
         'room_price',
         'rental_status',
     ];
+
+    public function member()
+    {
+        return $this->hasOne(Member::class);
+    }
 
     public function bill()
     {

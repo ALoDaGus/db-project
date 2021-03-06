@@ -3,6 +3,18 @@
 @section('content')
 @include('layouts.dbgroup')
 
+<style>
+  td#bt {
+      text-align: center;
+      width: 3em;
+  }
+
+  th#action {
+      text-align: center;
+  }
+
+</style>
+
 <div class="container">
     <h2>Member Detail Table</h2>
     <div class="container" style="display: flex; padding:0;">
@@ -16,6 +28,7 @@
           <th>TelNo.</th>
           <th>Email</th>
           <th>Address</th>
+          <th id="action" colspan="2">Action</th>
         </tr>
       </thead>
       <tbody>
@@ -28,25 +41,22 @@
           <td>{{$data->tel_no}}</td>
           <td>{{$data->email}}</td>
           <td>{{$data->address}}</td>
+          <td id="bt">
+            <button class="btn" style="padding:0">
+                <a href="editdata/{{$data->id}}"><i class="fas fa-cog" style="color: #0068ad;" aria-hidden="true"></i></a>
+    </td>
+    <td id="bt">
+        <form method="POST" action="{{ route('member.destroy', [$data->id]) }}">
+            {{ csrf_field() }}
+            {{ method_field('DELETE') }}
+            <button class="btn" style="padding:0">
+                <i class="fas fa-trash-alt" style="color: #e33b3b;" aria-hidden="true"></i>
+            </button>
+        </form>
+    </td>
         </tr>
         @endforeach
       </tbody>
-    </table>
-    <table class="table table-bordered" style="margin:0 1rem; max-width:50px">
-      <thead>
-        <tr>
-          <th colspan="2" style="text-align: center;">Action</th>
-        </tr>
-      </thead>
-      <tbody>
-        @foreach ($member_detail as $item)
-        <tr>
-            <td><a href="#"><i class="fas fa-cog" style="color: #0068ad"></i></a></td>
-            <td><a href="#"><i class="fas fa-trash-alt" style="color: #e33b3b"></i></a></td>
-        </tr>
-        @endforeach
-      </tbody>
-    </table>
   </div>
 </div>
 

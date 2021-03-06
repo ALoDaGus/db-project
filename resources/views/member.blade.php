@@ -35,12 +35,8 @@
                             <td>{{ $data->id }}</td>
                             <td>{{ $data->room_id }}</td>
                             <td id="bt">
-                                {{-- <form method="POST" action="{{ route('edit', [$data->id]) }}">
-                                    {{ csrf_field() }} --}}
                                     <button class="btn" style="padding:0">
                                         <a href="editdata/{{$data->id}}"><i class="fas fa-cog" style="color: #0068ad;" aria-hidden="true"></i></a>
-                                    {{-- </button>
-                                </form> --}}
                             </td>
                             <td id="bt">
                                 <form method="POST" action="{{ route('member.destroy', [$data->id]) }}">
